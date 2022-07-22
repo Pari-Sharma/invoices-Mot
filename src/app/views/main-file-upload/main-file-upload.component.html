@@ -1,0 +1,67 @@
+<ng-template #content let-modal>
+  <div class="modal-body">
+    <div class="container">
+      <div class="row">
+        <div class="col-4">
+          <div class="leftSide">
+            <h3>KYC Form</h3>
+            <p>Complete the KYC Form</p>
+            <button class="btn btn-primary btn-lg btn-block w-100" (click)="ContactformClick($event)"><span></span>Contact Info</button><br><br>
+            <button class="btn btn-primary btn-lg btn-block w-100" (click)="DocumentformClick($event)"><span></span>Document Info</button>
+          </div>
+        </div>
+        <div class="col-8">
+          <div class="rightSide">
+            <div *ngIf="showDocument " class="showDocument">
+              <form [formGroup]="formGroup" (submit)="SubmitForm()">
+                Business Type:
+                <select class="conatiner" (change)="selectComapnyType($event)">
+                  <option>Select</option>
+                  <option value="proprietary">Properitary</option>
+                  <option value="partnership">Partnership</option>
+                  <option value="LLP">LLP</option>
+                  <option value="Private_Limited_Company">Private Limited Company</option>
+                  <option value="Public_Limited_Company">Public Limited Company</option>
+                </select><br><br>
+                <div class="form-group" *ngFor="let v of dataToRender">
+                  <div class="jumbotron">
+                    {{v}}: <br>
+                  <div class="input-group">
+                    <input id="files" name={{v}} id="dateOfBirth" class="form-control" type="file" (change)="uploadFile($event)" cFormControl required />
+                    <!-- <button class="btn btn-outh1ne-secondary calendar" type="button"></button> -->
+                  </div><br>
+                  
+                  </div>
+                </div>
+                <button *ngIf="dataToRender.length" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+            <div *ngIf="showContact" class="showContact">
+              <h3>Contact Info</h3>
+              <form cForm>
+                <div class="mb-3">
+                <label cLabel for="exampleFormControlInput1">Name</label>
+                <input cFormControl
+                disabled="true"
+                           id="exampleFormControlInput1"
+                           placeholder="XYZ"
+                           type="text"
+                    />
+                </div>
+                <div class="mb-3">
+                  <label cLabel for="exampleFormControlInput">Email address</label>
+                  <input cFormControl
+                  disabled="true"
+                             id="exampleFormControlInput"
+                             placeholder="name@example.com"
+                             type="email"
+                      />
+                  </div>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

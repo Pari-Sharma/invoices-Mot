@@ -1,0 +1,156 @@
+body{
+    padding:5px;
+  }
+  .invoice{
+    font-weight: bold;
+    font-size: 20px;
+    color: #58666e;
+    font-family: "Lato","Lato-Regular","Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+  .form-control{
+  border: none;
+  padding: 0%;
+  border-bottom: solid 1px;
+  outline: none;
+  font-family: "Lato","Lato-Regular","Helvetica Neue",Helvetica,Arial,sans-serif;
+  
+  margin-top: 20px;
+  border-radius: 0;
+  display:inline
+  }
+  .form-control:focus{
+    border-style: none;
+    border-bottom: solid 1px;
+    box-shadow: none;
+  }
+  #Invoice-No{
+    width:160px;
+    margin-left:10px;
+    font-family: "Lato","Lato-Regular","Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+  li{
+    list-style: none;
+    display: inline;
+    padding:20px;
+  }
+  ul{
+    width:515px;
+    height: 30px;
+    background-color: grey;
+    }
+    .list-item {
+  align-items: center;  }
+  .Desc{
+    padding: 0;
+    margin-right:100px
+  }
+  .container{
+    width:650px;
+    float: left;
+    //padding:20px;
+    //margin-top:50px;
+    font-family: "Lato","Lato-Regular","Helvetica Neue",Helvetica,Arial,sans-serif;
+    height:700px;
+    background-color: white;
+    border-color: #faeacc;}
+  .Date{
+   // margin-left:12px;
+    display:inline;
+    border:none;
+    border-bottom: solid 1px;
+    outline: none;
+    color: #58666e;
+  
+  }
+  .Date:focus{
+    border: none;
+    border-bottom: solid 1px;
+    box-shadow: none;
+    }
+  .Customers
+  {
+  border: none;
+  border-bottom: solid 1px;
+  outline: none;
+  margin-top: 5px;
+  border-radius: 0;
+  font-family: "Lato","Lato-Regular","Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+  .Customers:focus{
+    border-style: none;
+    border-bottom: solid 1px;
+    box-shadow: none;
+  }
+  .address{
+    font-size: 12px;
+  }
+  .add{
+    float: right;
+    margin-right: 65px;;
+  }
+  button{
+    padding: 0;
+    text-decoration: none;
+  }
+  .mat-typography h4 {
+  
+    margin: 0;
+  }
+  .col-12 .form-control{
+    width:450px;
+  }
+  .col-md-6 .form-control{
+    width:150px;
+    margin-top: 10px;
+  }
+  .col-md-2 .form-control{
+    width: 80px;
+    margin-top: 0px;
+  }
+  #buttons{
+    padding:0;
+    width:300px;
+    height:70px;
+  }
+  .buttons{
+    margin-top: 40px;
+    float:right;
+  }
+  .main{
+    width:100%;
+    height:100%;
+    overflow: hidden;
+    display: inline;
+    background-color: #efefef;
+    font-family: "Lato","Lato-Regular","Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+  .btn-group-vertical>.btn{
+     width: 80%;
+  }
+  .submit{
+    width:205px;
+    padding:10px;
+  }
+  .Issue{
+    width:180px;
+    height:40px;
+  }
+  .No-Delete{
+    width:120px;
+    border: none;
+  }
+  .Yes-Delete{
+    width: 120px;
+  }
+  .btn-lg {
+    border: none;
+    font-size:18px
+  }
+  element.style{
+    font-size: 10px;
+  }
+  h3{
+    margin-top:20px;
+    line-height: auto;
+    font-size:medium;
+  }

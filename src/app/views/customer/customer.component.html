@@ -1,0 +1,170 @@
+<c-card>
+  <c-card-body>
+    <h3 cCardTitle>Customers</h3>
+    <!-- <button type="button" class="btn btn-primary bt-button" (click)="open(content)">Add Customers</button> -->
+    <button class="btn btn-primary bt-button" (click)="toggleLiveDemo()" cButton>Add Customer</button>
+    <!-- <h6 cCardSubtitle class="mb-2 text-medium-emphasis">
+      Card subtitle
+    </h6> -->
+    <br>
+    <div style="overflow-x:auto;">
+      <table *ngIf="allCustomer.length" [striped]="true" cTable>
+        <thead>
+          <tr>
+            <th scope="col">Company Id</th>
+            <th scope="col">Company Name</th>
+            <th scope="col">Company Contact no</th>
+            <th scope="col">Company Email</th>
+            <th scope="col">Company GstIn</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let v of allCustomer;let i=index">
+            <th scope="row">{{allCustomer[i].id}}</th>
+            <td>{{allCustomer[i].name}}</td>
+            <td>{{allCustomer[i].contactNumber}}</td>
+            <td>{{allCustomer[i].email}}</td>
+            <td>{{allCustomer[i].gstin}}</td>
+            <td><button (click)="toggleLiveEdit(i)"><a>Edit</a></button></td>
+          </tr>
+          <!-- <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+        </tr>
+        <tr>
+        <th scope="row">3</th>
+        <td colSpan="2">Larry the Bird</td>
+        <td>@twitter</td>
+        </tr> -->
+        </tbody>
+      </table>
+    </div>
+    <p style="text-align:center;" *ngIf="allCustomer.length" cCardText>
+      Showing 1 of {{allCustomer.length}}
+    </p>
+    <!-- <a [routerLink] cCardLink>Card link</a>
+    <a [routerLink] cCardLink>Another link</a> -->
+  </c-card-body>
+</c-card>
+
+
+<c-modal id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
+  <c-modal-header>
+    <h5 cModalTitle>Add Customer</h5>
+    <button (click)="toggleLiveDemo()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <form [formGroup]="form" cForm>
+      <div class="mb-3">
+        <label cLabel for="companyName">Name</label>
+        <input cFormControl id="companyName" type="text" formControlName="companyName" value={{f.companyName.value}
+              />
+              <div *ngIf="f['companyName'].invalid && (f['companyName'].dirty || f['companyName'].touched)" class="alert alert-danger form-danger" role="alert">
+                <div *ngIf="f['companyName'].errors">
+                    Enter Some Value
+                </div>
+              </div>
+          </div>
+        <div class="mb-3">
+        <label cLabel for="email">Email address</label>
+        <input cFormControl
+                   id="email"
+                   placeholder="name@example.com"
+                   type="email"
+                   formControlName="email"
+                   value={{f.email.value}
+            />
+        </div>
+        <div class="mb-3">
+          <label cLabel for="contactNo">Contact No</label>
+          <input cFormControl
+                     id="contactNo"
+                     placeholder="78974832"
+                     type="text"
+                     formControlName="contactNo"
+                     value={{f.contactNo.value}
+              />
+          </div>
+          <div class="mb-3">
+            <label cLabel for="gstIn">Gst In</label>
+            <input cFormControl
+                       id="gstIn"
+                       placeholder="27ACCsje"
+                       type="text"
+                       formControlName="gstIn"
+                       minlength="15"
+                       maxlength="15"
+                />
+            </div>
+        </form>
+    </c-modal-body>
+    <c-modal-footer>
+      <button (click)="toggleLiveDemo()" cButton color="secondary">
+        Close
+      </button>
+      <button cButton color="primary" [disabled]="!form.valid" (click)="AddCustomer()">Add</button>
+    </c-modal-footer>
+  </c-modal>
+
+  <c-modal id="liveDemoModl" [visible]="edit" (visibleChange)="handleLiveEditChange($event)">
+    <c-modal-header>
+      <h5 cModalTitle>Edit Customer</h5>
+      <!-- <button (click)="toggleLiveEdit()" cButtonClose></button> -->
+    </c-modal-header>
+    <c-modal-body>
+      <form [formGroup]="form" cForm>
+        <div class="mb-3">
+          <label cLabel for="companyName">Name</label>
+          <input cFormControl
+                     id="companyName"
+                     type="text"
+                     formControlName="companyName"
+              />
+              <div *ngIf="f['companyName'].invalid && (f['companyName'].dirty || f['companyName'].touched)" class="alert alert-danger form-danger" role="alert">
+                <div *ngIf="f['companyName'].errors">
+                    Enter Some Value
+                </div>
+              </div>
+          </div>
+        <div class="mb-3">
+        <label cLabel for="email">Email address</label>
+        <input cFormControl
+                   id="email"
+                   placeholder="name@example.com"
+                   type="email"
+                   formControlName="email"
+            />
+        </div>
+        <div class="mb-3">
+          <label cLabel for="contactNo">Contact No</label>
+          <input cFormControl
+                     id="contactNo"
+                     placeholder="78974832"
+                     type="text"
+                     formControlName="contactNo"
+              />
+          </div>
+          <div class="mb-3">
+            <label cLabel for="gstIn">Gst In</label>
+            <input cFormControl
+                       id="gstIn"
+                       placeholder="27ACCsje"
+                       type="text"
+                       formControlName="gstIn"
+                       minlength="15"
+                       maxlength="15"
+                />
+            </div>
+        </form>
+    </c-modal-body>
+    <c-modal-footer>
+      <button (click)="toggleLiveEdit('-1')" cButton color="secondary">
+        Close
+      </button>
+      <button cButton color="primary" [disabled]="!form.valid" (click)="EditCustomer()">Edit</button>
+    </c-modal-footer>
+  </c-modal>
+  

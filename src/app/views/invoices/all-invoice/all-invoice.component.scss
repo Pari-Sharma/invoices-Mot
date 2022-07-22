@@ -1,0 +1,43 @@
+nav{
+  background-color: aliceblue;
+  width:87%;
+  margin-top:40px;
+  margin-left:74px;
+  height:50px
+  }
+  .btn-block {
+      float:right;
+      margin-top:10px;
+    }
+    th{
+      background-color: #eaeff0;
+      border-bottom: 1px solid #ddd;
+      border-top: 1px solid #ddd;
+      border-left: none;
+      border-right: none;
+      padding:10px;
+      width:158px;
+      text-align: center;
+      --fontFamily: Lato;
+    }
+    td{
+      background-color: whitesmoke;
+      border-bottom: 1px solid #ddd;
+      border-top: 1px solid #ddd;
+      padding:10px;
+      height:40px;
+      width:158px;
+      text-align: center;
+      --fontFamily: Lato;
+    }
+    table{
+      margin-top: 20px;
+      padding:5px;
+      margin-left:72px;
+      width:80%;
+    }
+    .header{
+      background-color: aliceblue;
+      height:60px;
+      width:80%;
+      }

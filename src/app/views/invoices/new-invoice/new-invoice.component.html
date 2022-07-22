@@ -1,0 +1,474 @@
+
+    <div class="main">
+<!--  -->
+ <!--Buttons for Save Invoice,Finalise and issue ,duplicate and delete invoices.
+        Duplicate invoice will be hide after fetching the details if an invoice is already exist the duplicate option will 
+        be shown-->
+        <div class="buttons">
+          <div class="btn-group-vertical">
+            <button cButton
+              id="buttons"
+              type="button"
+              class="btn btn-primary mb-2 me-2"
+              (click)="openSm(Content2)"
+            >
+              <i class="fa fa-check" aria-hidden="true"></i>Finalize and Issue
+            </button>
+            <br />
+            <button cButton
+              id="buttons"
+              class="btn btn-light"
+              type="button"
+              value="Draft"
+              (click)="alert(isAlert)"
+            >
+              <i class="fa fa-floppy-o" aria-hidden="true"></i> Save Invoices
+            </button>
+            <button cButton id="buttons" class="btn btn-light" type="button">
+              <i class="fa fa-clone" aria-hidden="true"></i> Duplicate Invoices
+            </button>
+            <button cButton
+              id="buttons"
+              (click)="DeleteInvoice(Delete)"
+              class="btn btn-light"
+              type="button"
+            >
+              <i class="fa fa-times" aria-hidden="true"></i> Delete Invoices
+            </button>
+          </div>
+        </div>
+      </div>
+      <!--  -->
+        <div class="container">
+          <!--Alert For Saving the invoices form-->
+          <div *ngIf="isAlert" class="alert alert-success" role="alert">
+            Invoice Saved !
+          </div>
+          <!--Invoices Form-->
+          <form cForm cForm>
+            <!--<h1>{{user.name}}</h1>-->
+            <div class="form-group">
+              <!--Invoice No-->
+              <label cLabel cLabel class="invoice" for="Invoice-No">Invoice #</label>
+               <input cFormControl cFormControl
+                class="form-control"
+                name="Invoice-No"
+                id="Invoice-No"
+                type="text"
+                placeholder="Enter Invoice Number"
+              />
+              <br />
+              <!--Desciption of Invoice-->
+              <label cLabel cLabel for="Description"></label>
+               <input cFormControl cFormcontrol
+                class="form-control"
+                autocomplete="off"
+                name="Description"
+                id="Description"
+                type="text"
+                placeholder="Enter a breif description or summary"
+              />
+              <br />
+              <br />
+              <!--Billing and shipping address-->
+              <div class="add">
+                <h3>Billing Address</h3>
+                <h4 class="address" *ngIf="change()">
+                  Select customer to add Billing Address
+                </h4>
+                <button cButton cButton
+                  *ngIf="!change()"
+                  type="button"
+                  class="btn btn-lg btn-outline-primary"
+                  (click)="open1(content1)"
+                  href="abc"
+                >
+                  + Add Billing Address
+                </button>
+                <br />
+                <h3>Shipping Address</h3>
+                <h4 class="address" *ngIf="change()">
+                  Select customer to add Shipping Address
+                </h4>
+                <button cButton cButton
+                  *ngIf="!change()"
+                  type="button"
+                  class="btn btn-lg btn-outline-primary"
+                  (click)="open(content)"
+                >
+                  +Add Shipping Address
+                </button>
+  
+                <!--modal form for shipping Address-->
+                <ng-template #content let-modal>
+                  <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">
+                      Shipping Address
+                    </h4>
+                    <button cButton cButton
+                      type="button"
+                      class="btn-close"
+                      aria-label="Close"
+                      (click)="modal.dismiss('Cross click')"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <form cForm cForm>
+                      <div class="mb-3">
+                        <form cForm class="row g-3">
+                          <div class="col-12">
+                            <label cLabel for="inputAddress" class="form-label">
+                              Address
+                            </label>
+                             <input cFormControl
+                              type="text"
+                              class="form-control"
+                              id="inputAddress"
+                              placeholder="Add address line 1"
+                            />
+                          </div>
+                          <div class="col-12">
+                            <label cLabel for="inputAddress2" class="form-label">
+                              Address 2
+                            </label>
+                             <input cFormControl
+                              type="text"
+                              class="form-control"
+                              id="inputAddress2"
+                              placeholder="Add address (optional) min 8 letters"
+                            />
+                          </div>
+                          <div class="col-md-2">
+                            <label cLabel for="inputZip" class="form-label">Zip</label>
+                             <input cFormControl
+                              type="text"
+                              class="form-control"
+                              id="inputZip"
+                            />
+                          </div>
+                          <div class="col-md-6">
+                            <label cLabel for="inputCity" class="form-label">City</label>
+                             <input cFormControl
+                              type="text"
+                              class="form-control"
+                              id="inputCity"
+                            />
+                          </div>
+                          <div class="col-md-4">
+                            <label cLabel for="inputState" class="form-label"
+                              >State</label
+                            >
+                            <select aria-label="Default select example" class="inputState" cSelect>
+                              <option>State</option>
+                              <option value="1">One</option>
+                              <option value="2">Two</option>
+                              <option value="3">Three</option>
+                            </select>
+                          </div>
+                        </form>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button cButton
+                      type="button"
+                      class="btn btn-outline-dark"
+                      (click)="modal.close('Save click')"
+                    >
+                      Save
+                    </button>
+                  </div>
+                  <!--modal form for billing Address-->
+                </ng-template>
+                <ng-template #content1 let-modal>
+                  <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">
+                      Billing Address
+                    </h4>
+                    <button cButton
+                      type="button"
+                      class="btn-close"
+                      aria-label="Close"
+                      (click)="modal.dismiss('Cross click')"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <form cForm>
+                      <div class="mb-3">
+                        <form cForm class="row g-3">
+                          <div class="col-12">
+                            <label cLabel for="inputAddress" class="form-label">
+                              Address
+                            </label>
+                             <input cFormControl
+                              type="text"
+                              class="form-control"
+                              id="inputAddress"
+                              placeholder="Add address line 1"
+                            />
+                          </div>
+                          <div class="col-12">
+                            <label cLabel for="inputAddress2" class="form-label">
+                              Address 2
+                            </label>
+                             <input cFormControl
+                              type="text"
+                              class="form-control"
+                              id="inputAddress2"
+                              placeholder="Add address (optional) min 8 letters"
+                            />
+                          </div>
+                          <div class="col-md-2">
+                            <label cLabel for="inputZip" class="form-label">Zip</label>
+                             <input cFormControl
+                              type="text"
+                              class="form-control"
+                              id="inputZip"
+                            />
+                          </div>
+                          <div class="col-md-6">
+                            <label cLabel for="inputCity" class="form-label">City</label>
+                             <input cFormControl
+                              type="text"
+                              class="form-control"
+                              id="inputCity"
+                            />
+                          </div>
+                          <div class="col-md-4">
+                            <label cLabel for="inputState" class="form-label"
+                              >State</label
+                            >
+                            <select aria-label="Default select example" class="inputState" cSelect>
+                              <option>State</option>
+                              <option value="1">One</option>
+                              <option value="2">Two</option>
+                              <option value="3">Three</option>
+                            </select>
+                          </div>
+                        </form>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button cButton
+                      type="button"
+                      class="btn btn-outline-dark"
+                      (click)="modal.close('Save click')"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </ng-template>
+                <!-- Ng modal finalise and issue-->
+                <ng-template #Delete let-modal>
+                  <div class="modal-header">
+                    <h4 class="modal-title">Delete Invoice</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>
+                      The Invoice will be deleted. There is no coming back!. Are
+                      you sure? If you have added any item or customer, you can
+                      still use them in other invoices.&hellip;
+                    </p>
+                  </div>
+                  <div class="modal-footer">
+                    <button cButton
+                      type="button"
+                      class="btn btn-light No-Delete"
+                      (click)="modal.dismiss('Cross click')"
+                    >
+                      No, Don't!
+                    </button>
+                    <button cButton
+                      type="submit"
+                      class="btn btn-primary Yes-Delete"
+                      (click)="modal.Save('Submit')"
+                    >
+                      Yes, Delete
+                    </button>
+                  </div>
+                </ng-template>
+                <!--Ng modal for Issue Invoice-->
+                <ng-template #Content2 let-modal>
+                  <div class="modal-header">
+                    <h2 class="modal-title">Issue Invoice</h2>
+                    <button cButton
+                      type="button"
+                      class="btn-close"
+                      aria-label="Close"
+                      (click)="modal.dismiss('Cross click')"
+                    ></button>
+                  </div>
+                  <div class="modal-body">
+                    <div>
+                      <span> Send Invoice and payment instructions to... </span>
+                    </div>
+                    <div>
+                      <!--Data will be fetched by customer list-->
+                    </div>
+                    <div>
+                      A <b>payment link </b>will also be created.<br />
+                      The invoice can<b> not</b> be edited after issuing.
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button cButton
+                      type="button"
+                      class="btn btn-primary Issue"
+                      (click)="modal.close('Submit click')"
+                    >
+                      Issue Invoice
+                    </button>
+                  </div>
+                </ng-template>
+              </div>
+              <!--Billing to-->
+              <label>
+                Billing To
+                <br />
+                 <input cFormControl
+                  autocomplete="off"
+                  class="Customers"
+                  list="Customers"
+                  name="Customer"
+                  placeholder="Select A customer"
+                  (change)="newCustomer($event)"
+                />
+              </label>
+              <datalist id="Customers">
+                <option
+                  onclick="change()"
+                  *ngFor="let cust of Customers"
+                  value="{{ cust }}"
+                >
+                  {{ cust }}
+                </option>
+              </datalist>
+            </div>
+            <br />
+            <!--Issue date and billing date-->
+            <div class="form-group">
+              <label cLabel for="Issue-Date">Issue Date</label>
+               <input cFormControl class="Date" type="date" [value]="TodayDate" />
+              <br />
+              <br />
+              <label cLabel for="Expiry-Date">Expiry Date</label>
+               <input cFormControl
+                class="Date"
+                type="date"
+                placeholder="Expiry date"
+                value="Expiry Date"
+                min="{{ TodayDate }}"
+              />
+            </div>
+            <br />
+            <br />
+            <br />
+            <div class="form-group">
+              <ul>
+                <li class="Desc">Description</li>
+                <li>Rate/Item</li>
+                <li>QTY</li>
+                <li>Total</li>
+              </ul>
+            </div>
+                      <!--Add line Item
+  
+            <table>
+              <tbody>
+                <tr *ngFor="let v of getAllItems.value; let i = index">
+                  <td>
+                     <input cFormControl
+                      value="{{ v.name }}"
+                      list="options"
+                      (change)="AddOrNotAdd($event, i)"
+                      
+                    />
+                    <datalist id="options">
+                      <option *ngFor="let g of arrayItem">
+                        {{ g.value.name }}
+                      </option>
+                      <option value="add" >Add</option>
+                    </datalist>
+                  </td>
+                  <td>{{ v.qty }}</td>
+                  <td>{{ v.rate }}</td>
+                  <td>{{ v.total }}</td>
+                  <td *ngIf="arrayItem.length > 0">
+                    <button cButton (click)="DeleteDocumentAndReturnFormGroup(i)">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+  
+            <h2>The Total data is {{ total }}</h2>
+  
+            <button cButton (click)="AddNewEmptyItems()">Add Item</button>
+  
+            <ng-template #content4 let-modal>
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+                <button cButton
+                  type="button"
+                  class="btn-close"
+                  aria-label="Close"
+                  (click)="modal.dismiss('Cross click')"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="container">
+                  <form cForm [formGroup]="ItemForm">
+                    Product Name <input cFormControl formControlName="name" /> Product
+                    Rate <input cFormControl formControlName="rate" /> Product Qty <input cFormControl
+                      formControlName="qty"
+                    />
+                    Product Description <input cFormControl formControlName="description" />
+                    <button cButton type="button" (click)="modal.close('Submit')">
+                      Submit
+                    </button>
+                  </form>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button cButton
+                  type="button"
+                  class="btn btn-outline-dark"
+                  (click)="modal.close('Save click')"
+                >
+                  Save
+                </button>
+              </div>
+            </ng-template>-->
+            <br>
+            <br><br>
+            <!--Customer Notes -->
+            <div class="form-group">
+              <label cLabel for="Customer-Notes">Customer Notes</label>
+              <br />
+               <input cFormControl
+                class="form-control"
+                name="Customer-Notes"
+                id="Customer-Notes"
+                type="text"
+                placeholder="Add Customer Notes"
+              />
+              <br />
+              <br />
+              <!--Terms and conditions-->
+              <label cLabel for="Terms-And-Conditions">Terms And Conditions</label>
+              <br />
+               <input cFormControl
+                class="form-control"
+                name="Terms-And-Conditions"
+                id="Terms-And-Conditions"
+                type="text"
+                placeholder="Add Terms And Conditions"
+              />
+            </div>
+          </form>
+        </div>
+        <!--Buttons for Save Invoice,Finalise and issue ,duplicate and delete invoices.
+        Duplicate invoice will be hide after fetching the details if an invoice is already exist the duplicate option will 
+        be shown-->

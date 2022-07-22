@@ -1,0 +1,39 @@
+<!--<c-header class="mb-4 d-print-none" position="sticky">-->
+<ng-container>
+  <c-container [fluid]="true">
+    <button
+      toggle="visible"
+      cHeaderToggler
+      [cSidebarToggle]="sidebarId"
+      class="ps-1"
+    >
+      <svg cIcon
+        name="cilMenu"
+        size="lg"
+      ></svg>
+    </button>
+    <c-header-nav class="d-none d-lg-flex me-auto">
+      <c-nav-item>
+        <a cNavLink routerLink="/dashboard" routerLinkActive="active">
+          Dashboard
+        </a>
+      </c-nav-item>
+    </c-header-nav>
+
+    <!--aside toggler-->
+    <button
+      toggle="visible"
+      cHeaderToggler
+      cSidebarToggle="aside1"
+      class="px-md-0 me-md-3 d-none d-sm-block"
+    >
+      <svg cIcon name="cilApplicationsSettings" size="lg"></svg>
+    </button>
+  </c-container>
+  <c-header-divider></c-header-divider>
+  <c-container [fluid]="true">
+    <!-- breadcrumbs -->
+    <c-breadcrumb-router class="ms-2"></c-breadcrumb-router>
+  </c-container>
+</ng-container>
+<!--</c-header>-->
