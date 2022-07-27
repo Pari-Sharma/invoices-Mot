@@ -75,7 +75,7 @@ export class CustomerComponent implements OnInit {
 
     this.http
       .post(
-        'https://localhost:44323/api/app/users/3a053181-1a15-fd06-fe02-d02979d0460b/customers',
+        'https://localhost:44323/api/app/users/3a0531d4-2078-b145-6b06-d72f628403d3/customers',
         {
           name: mn.name,
           email: mn.email,
@@ -114,7 +114,7 @@ export class CustomerComponent implements OnInit {
     
     this.http
       .put(
-        `https://localhost:44323/api/app/users/3a053181-1a15-fd06-fe02-d02979d0460b/customers/${mn.id}`,
+        `https://localhost:44323/api/app/users/3a0531d4-2078-b145-6b06-d72f628403d3/customers/${mn.id}`,
         {
           name: p.name,
           email: p.email,
@@ -136,7 +136,7 @@ export class CustomerComponent implements OnInit {
 
   constructor(private modalService: NgbModal, private http: HttpClient) {}
   ngOnInit(): void {
-    let userId = '3a053181-1a15-fd06-fe02-d02979d0460b';
+    let userId = '3a0531d4-2078-b145-6b06-d72f628403d3';
     let url = `https://localhost:44323/api/app/users/${userId}/customers`;
     this.http.get(url).subscribe((result) => {
       // console.log(Object.values(result));

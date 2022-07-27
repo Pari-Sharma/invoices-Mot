@@ -1,0 +1,26 @@
+.bg-primary {
+    --cui-bg-opacity: 1;
+    background-color: rgba(var(--cui-primary-rgb), var(--cui-bg-opacity)) !important;
+}
+.text-white {
+    --cui-text-opacity: 1;
+    color: rgba(var(--cui-white-rgb), var(--cui-text-opacity)) !important;
+}
+.py-5 {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+}
+.card-body {
+    flex: 1 1 auto;
+    padding: var(--cui-card-spacer-y) var(--cui-card-spacer-x);
+    color: var(--cui-card-color);
+}
+.row {
+    --cui-gutter-x: 1.5rem;
+    --cui-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(-1 * var(--cui-gutter-y));
+    margin-right: calc(-0.5 * var(--cui-gutter-x));
+    margin-left: calc(-0.5 * var(--cui-gutter-x));
+}

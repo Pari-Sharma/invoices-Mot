@@ -24,10 +24,12 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.router.events.subscribe((evt) => {
-      if (!(evt instanceof NavigationEnd)) {
-        return;
-      }
-    });
+    // this.router.events.subscribe((evt) => {
+    //   if (!(evt instanceof NavigationEnd)) {
+    //     return;
+    //   }
+    // });
+   
+      this.router.navigateByUrl('http://localhost4200');
   }
 }
