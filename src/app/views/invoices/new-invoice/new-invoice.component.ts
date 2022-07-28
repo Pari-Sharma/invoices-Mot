@@ -32,12 +32,41 @@ export class NewInvoiceComponent implements OnInit {
   Shipping:any=[];
   BillingCustomer:any=[];
   Billing:any=[];
-  //add item
+  //add Customer
+  form = new FormGroup({
+    companyName: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    contactNo: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[0-9]*$'),
+      Validators.minLength(10),
+      Validators.maxLength(10),
+    ]),
+    gstIn: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[a-zA-Z0-9_.-]*$'),
+      Validators.maxLength(15),
+      Validators.minLength(15),
+    ]),
+  });
+  get f() {
+    return this.form.controls;
+  }
+  public visible = false;
+  toggleLiveDemo() {
+    this.form.reset();
+    this.visible = !this.visible;
+  }
+
+  handleLiveDemoChange(event: any) {
+    this.visible = event;
+  }
   title = 'AddItems';
   vvvv = ""
   total = 0;
   itemArray : any[] = []
   @ViewChild('content4') someElement!: ElementRef 
+  @ViewChild('Add') divHello!: ElementRef;
   constructor(private route: ActivatedRoute,private http:HttpClient, private modalService: NgbModal,private formbuilder:FormBuilder) {
     this.Invoices=[];
     this.Billing=[];
@@ -98,12 +127,15 @@ export class NewInvoiceComponent implements OnInit {
     }
     this.TodayDate =
       this.currentYear + '-' + this.FinalMonth + '-' + this.FinalDay;
-    this.change();
+    // this.change();
   }
   newCustomer(data: any) {
     this.newCust = data.target.value;
   }
   change() {
+    // if(v.target.value == "Add"){
+    //   this.handleLiveDemoChange(this.someElement);
+    // }
     if (this.newCust.length != 0) {
       return false;
     }
@@ -222,7 +254,7 @@ export class NewInvoiceComponent implements OnInit {
   //    console.log(this.Billing)
   //  });
 }
- /* //add item
+  //add item
   arrayItem :any[] = []
   ItemForm = new FormGroup({
     name: new FormControl(""),
@@ -231,7 +263,7 @@ export class NewInvoiceComponent implements OnInit {
     qty: new FormControl(1),
     total: new FormControl(0.0),
   })
-  form = new FormGroup({
+  form1 = new FormGroup({
     invoice_no : new FormControl(""),
     summary : new FormControl(""),
     customer : new FormControl(""),
@@ -246,7 +278,7 @@ export class NewInvoiceComponent implements OnInit {
     TnC : new FormControl(""),
   })
   get getAllItems(){
-    return this.form.controls.items as FormArray;
+    return this.form1.controls['items'] as FormArray;
   }
   AddOrNotAdd(data:any , index:any){
     console.log(data);
@@ -257,7 +289,7 @@ export class NewInvoiceComponent implements OnInit {
       this.arrayItem.splice(parseInt(index) , parseInt(index)+1)
       this.getAllItems.removeAt(parseInt(index))
       this.modalService.open(this.someElement).result.then((result) => {
-      let mn = this.ItemForm.controls.qty.value! * this.ItemForm.controls.rate.value!
+      let mn = this.ItemForm.controls['qty'].value! * this.ItemForm.controls['rate'].value!
       this.total = this.total + mn;
       // const ids = this.arrayItem.map(o => o.name)
       // const filtered = this.arrayItem.filter(({id}, index) => !ids.includes(id, index + 1))
@@ -388,7 +420,7 @@ export class NewInvoiceComponent implements OnInit {
     
     return p;
   }
-*/
+
 //add item
 
 }

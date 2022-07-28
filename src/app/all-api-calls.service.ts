@@ -10,11 +10,15 @@ export class AllApiCallsService {
 
   uploadAllFile(value:any , folder:any , subfolder:any){
     const formData = new FormData()
-    formData.append('files' , value)
+    for (let index = 0; index < value.length; index++) {
+      const element = value[index];
+      formData.append('files' , element)
+      
+    }
       let headers = new HttpHeaders({
         'Content-Type': 'multipart/form-data',
       });
-      let url = `https://localhost:44323/Api/bucket/upload?folder=${folder}&subfolder=${subfolder}`
+      let url = `https://localhost:44323/api/bucket/upload?folder=ppp&subfolder=${subfolder}`
       return this.http.post<any>(url,formData)
   }
 }

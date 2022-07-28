@@ -1,8 +1,8 @@
 <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
-    <h1>Logout ! </h1><p class="text-medium-emphasis">Sign In to your account</p>
-    <button class="btn btn-lg btn-outline-light mt-3" (click)="auth.logout({ returnTo: document.location.origin })">
+    <h1>Logout ! </h1><p class="text-medium-emphasis">Sign In to your account</p> 
+     <button class="btn btn-lg btn-outline-light mt-3" (click)="auth.logout({ returnTo: document.location.origin })">
         Log out
-    </button>
+    </button> 
 </ng-container>
 
 <div class="container">
@@ -17,7 +17,7 @@
             <div>
             <h2>Log In</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <button class="btn btn-lg btn-outline-light mt-3" type="button" (click)="loginWithRedirect()">Log in !</button>
+            <button class="btn btn-lg btn-outline-light mt-3" type="button" (click)="auth.loginWithRedirect()">Log in !</button>
             
             </div>
             </div>
@@ -84,7 +84,7 @@
                 <input cFormControl class="form-control" id="ContactNo" placeholder="Contact Number" formControlName="ContactNo"
                 autocomplete="none" type="text" required />
                 </div>
-        <button cButton color="primary" class="btn btn-block btn-success" (click)="Register()" type="submit" [disabled]="!RegisterForm.valid" routerLinkActive="active" routerlink="dashboard"
+        <button cButton color="primary" class="btn btn-block btn-success" (click)="Register()" type="submit" [disabled]="!RegisterForm.valid" routerLinkActive="active" routerlink="/dashboard"
         [tabindex]="'0'">Submit</button>
         </Form> </div>
         </div>

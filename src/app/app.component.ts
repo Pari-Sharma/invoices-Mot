@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
 import { IconSetService } from '@coreui/icons-angular';
 import { iconSubset } from './icons/icon-subset';
 import { Title } from '@angular/platform-browser';
+import { AuthService } from '@auth0/auth0-angular';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -16,7 +18,7 @@ export class AppComponent implements OnInit {
   constructor(
     private router: Router,
     private titleService: Title,
-    private iconSetService: IconSetService
+    private iconSetService: IconSetService,public auth :AuthService,@Inject(DOCUMENT) public document: Document,
   ) {
     titleService.setTitle(this.title);
     // iconSet singleton
@@ -29,7 +31,5 @@ export class AppComponent implements OnInit {
     //     return;
     //   }
     // });
-   
-      this.router.navigateByUrl('http://localhost4200');
   }
 }

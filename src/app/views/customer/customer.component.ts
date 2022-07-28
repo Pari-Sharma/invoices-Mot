@@ -3,6 +3,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MD5 } from 'crypto-js';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-customer',
@@ -31,6 +32,7 @@ export class CustomerComponent implements OnInit {
   });
   public visible = false;
   public edit = false;
+  userId='3a0531d4-2078-b145-6b06-d72f628403d3';
   toggleLiveDemo() {
     this.form.reset();
     this.visible = !this.visible;
@@ -75,7 +77,7 @@ export class CustomerComponent implements OnInit {
 
     this.http
       .post(
-        'https://localhost:44323/api/app/users/3a0531d4-2078-b145-6b06-d72f628403d3/customers',
+        `https://localhost:44323/api/app/users/${this.userId}/customers`,
         {
           name: mn.name,
           email: mn.email,
@@ -114,7 +116,7 @@ export class CustomerComponent implements OnInit {
     
     this.http
       .put(
-        `https://localhost:44323/api/app/users/3a0531d4-2078-b145-6b06-d72f628403d3/customers/${mn.id}`,
+        `https://localhost:44323/api/app/users/${this.userId}/customers/${mn.id}`,
         {
           name: p.name,
           email: p.email,
@@ -134,10 +136,10 @@ export class CustomerComponent implements OnInit {
     return this.form.controls;
   }
 
-  constructor(private modalService: NgbModal, private http: HttpClient) {}
+  constructor(private modalService: NgbModal, private http: HttpClient,private cookie: CookieService) {}
   ngOnInit(): void {
-    let userId = '3a0531d4-2078-b145-6b06-d72f628403d3';
-    let url = `https://localhost:44323/api/app/users/${userId}/customers`;
+    // this.userId = '3a0531d4-2078-b145-6b06-d72f628403d3'
+    let url = `https://localhost:44323/api/app/users/${this.userId}/customers`;
     this.http.get(url).subscribe((result) => {
       // console.log(Object.values(result));
       this.allCustomer = Object.values(result);

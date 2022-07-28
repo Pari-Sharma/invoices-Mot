@@ -15,6 +15,7 @@ export class AllInvoiceComponent implements OnInit {
   closeResult!: string;
   formValue !:FormGroup;
   Items: any;
+  
   url='https://localhost:44323/api/app/app-users';
   add(){
     this.isInvoice = !this.isInvoice;

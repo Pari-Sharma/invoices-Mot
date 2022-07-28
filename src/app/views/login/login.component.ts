@@ -6,6 +6,7 @@ import { AuthService } from '@auth0/auth0-angular';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -25,11 +26,26 @@ export class LoginComponent implements OnInit {
   emailPattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   MOBILE_PATTERN = "^((\\+91-?)|0)?[0-9]{10}$";
  Registerurl='https://localhost:44323/api/app/app-users';
- 
- constructor(public formBuilder:FormBuilder,public auth :AuthService,@Inject(DOCUMENT) public document: Document,private http:HttpClient , private cookie:CookieService ) { 
+  userData : any;
+ constructor(private router: Router,public formBuilder:FormBuilder,public auth :AuthService,@Inject(DOCUMENT) public document: Document,private http:HttpClient , private cookie:CookieService ) { 
  }
  ngOnInit(): void {
     this.Details=[];
+
+    this.auth.isAuthenticated$.subscribe(value=>{
+      console.log("Auth is ",value);
+      this.userData.isAuth = value;
+    })
+    this.auth.idTokenClaims$.subscribe(v=>{
+      console.log("Id Tokens",v);
+      
+      this.userData.idToken = v;
+    })
+    // if(this.userData.isAuth){
+    //   this.http.post("https://localhost",this.userData).subscribe(result=>{
+
+    //   })
+    // }
     this.RegisterForm=this.formBuilder.group({
       CompanyName:new FormControl('',[Validators.required]),
       CompanyPAN:new FormControl('',[Validators.required]),
@@ -50,9 +66,13 @@ export class LoginComponent implements OnInit {
       "companyGSTNumber": this.RegisterForm.value.CompanyGST,
       "contactPersonName": this.RegisterForm.value.ContactPerson
      }).subscribe(result=>{
+      console.log("result key is", Object.values(result)[0]);
+      this.cookie.set("id",Object.values(result)[0])
+      
      this.Details.push(this.RegisterForm.value);
      console.log(this.Details)
    });
+   this.router.navigateByUrl('/dashboard')
     } 
 
 loginWithRedirect(){

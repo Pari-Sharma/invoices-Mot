@@ -4,11 +4,12 @@
     <c-card-body>  
   <nav class="header">
     <button cButton color="info" class="btn btn-block btn-primary" 
-  routerLinkActive="active"
+  checked
+  >Invoices</button>   
+  <button cButton  color="info"   routerLinkActive="active"
   size="sm"
-  routerLink="/invoices/new"
-  >+ New invoice</button>
-  <button cButton (click)="add()" color="info" class="btn btn-block btn-primary">Add Item</button>
+  routerLink="/invoices/new" class="btn btn-block btn-primary"> + Add Invoice</button>
+  
     </nav>
     <table cTable>
         <thead>
@@ -43,7 +44,7 @@
       <c-card-body>
         <c-card-body>  
     <div class="container">
-       <nav> 
+       <!-- <nav> 
         <button style="margin:10px ;" cButton (click)="add()" color="info" class="btn btn-block btn-primary" size="sm">New Invoice</button>
         <button cButton color="info" class="btn btn-block btn-primary" 
         routerLinkActive="active"
@@ -51,8 +52,8 @@
         
         (click)="open(content)">+ New items</button>
       </nav>
-    
-      <ng-template #content let-modal>
+     -->
+      <!-- <ng-template #content let-modal>
         <div class="modal-header">
           <h2 class="modal-title" id="modal-basic-title">Add Item</h2>
           <button
@@ -107,7 +108,7 @@
         </svg>Remove</button></td>
         </tr>
         </tbody>
-        </table>
+        </table> -->
     </div>
     </c-card-body>
     </c-card-body>

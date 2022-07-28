@@ -30,7 +30,6 @@ import {
   CardModule,
   TableModule,
   CardComponent,
-  
   ModalModule,
   FormModule
   
@@ -44,6 +43,7 @@ import { MainFileUploadComponent } from './views/main-file-upload/main-file-uplo
 import { AllApiCallsService } from './all-api-calls.service';
 import { ItemsComponent } from './views/items/items.component';
 import { CookieService } from 'ngx-cookie-service';
+import { LoginComponent } from './views/login/login.component';
 
 const APP_CONTAINERS = [
   DefaultAsideComponent,
@@ -53,7 +53,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS, CustomerComponent, MainFileUploadComponent, ItemsComponent],
+  declarations: [AppComponent, ...APP_CONTAINERS, CustomerComponent, MainFileUploadComponent, ItemsComponent,LoginComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     BrowserModule,
@@ -79,7 +79,7 @@ const APP_CONTAINERS = [
       domain: 'login-mot1.us.auth0.com',
       clientId: 'ClNJpqQ7tFKfKoY6ki3v0nnKMFgPgR2B'
     }),
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     {
