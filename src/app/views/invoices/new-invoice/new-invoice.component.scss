@@ -22,6 +22,9 @@ body{
     border-bottom: solid 1px;
     box-shadow: none;
   }
+  .Customers{
+    width:260px;
+  }
   #Invoice-No{
     width:160px;
     margin-left:10px;
@@ -56,6 +59,8 @@ body{
    // margin-left:12px;
     display:inline;
     border:none;
+    width:200px;
+    margin-left: 15px;
     border-bottom: solid 1px;
     outline: none;
     color: #58666e;
@@ -151,5 +156,5 @@ body{
   h3{
     margin-top:20px;
     line-height: auto;
-    font-size:medium;
+    font-size:x-large;
   }

@@ -130,12 +130,17 @@ export class NewInvoiceComponent implements OnInit {
     // this.change();
   }
   newCustomer(data: any) {
+    if(data.target.value === 'Add'){
+      console.log("IN");
+      this.visible = !this.visible;
+
+      // this.modalService.open(this.someElement);
+    }
     this.newCust = data.target.value;
+    console.log(this.newCust);
+    
   }
   change() {
-    // if(v.target.value == "Add"){
-    //   this.handleLiveDemoChange(this.someElement);
-    // }
     if (this.newCust.length != 0) {
       return false;
     }
@@ -420,7 +425,41 @@ export class NewInvoiceComponent implements OnInit {
     
     return p;
   }
+  
+//add customer
+addCustomer() {
+  this.visible = !this.visible;
+  console.log(this.form.value);
+  console.log(this.form.value.companyName);
+  let mn = {
+    id:'nmsd',
+    name: this.form.value.companyName,
+    contactNumber: this.form.value.contactNo,
+    email: this.form.value.email,
+    gstin: this.form.value.gstIn,
+  };
+  this.form.reset();
+  // this.allCustomer.push(mn);
+  console.log(mn);
 
-//add item
+  // this.http
+  //   .post(
+  //     `https://localhost:44323/api/app/users/${this.userId}/customers`,
+  //     {
+  //       name: mn.name,
+  //       email: mn.email,
+  //       contactNumber: mn.contactNumber,
+  //       gstin: mn.gstin,
+  //     }
+  //   )
+  //   .subscribe((result) => {
+  //     mn.id = Object.values(result)[0];
+  //     console.log("Mn is ",mn);
+      
+  //     this.Customers.push(mn);
+  //     console.log(result);
+  //   });
+  
+}
 
 }
