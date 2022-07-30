@@ -112,7 +112,7 @@
             <tbody>
               <!-- Table Date -->
               <tr *ngFor="let item of Items; let i = index">
-                <td>{{ item.id }}</td>
+                <td><button (click)="open3(content1,item.id)">{{ item.id }}</button></td>
                 <td>{{ item.name }}</td>
                 <td><span class="symbol">₹</span>{{ item.ratePerItem }}</td>
                 <td>{{ item.ItemDescription }}</td>
@@ -182,3 +182,71 @@
     </c-card-body>
   </c-card>
   
+
+  <ng-template #content1 let-modal>
+    <div class="modal-header">
+      <h2 class="modal-title" id="modal-basic-title">Edit Item</h2>
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      ></button>
+    </div>
+    <form [formGroup]="formValue">
+      <div class="modal-body">
+        <div class="mb-6">
+          <div class="form-group">
+            <h4 for="Item">Name</h4>
+            <div class="input-group mb-3">
+              <input
+                cFormControl
+                class="form-control"
+                type="text"
+                name="item"
+                placeholder="Item Name"
+                formControlName="ItemName"
+                value={{formValue.value.ItemName}}
+              />
+            </div>
+            <h4>Rate</h4>
+            <div class="input-group mb-3">
+              <span class="input-group-text">₹</span>
+              <input
+                cFormControl
+                type="text"
+                class="form-control"
+                formControlName="ItemRate"
+                value={{formValue.value.ItemRate}}
+                aria-label="Amount (In Rupees)"
+              />
+              <span class="input-group-text">per Unit</span>
+            </div>
+            <h4 for="Description">Description</h4>
+            <div class="input-group mb-3">
+              <textarea
+                cFormControl
+                class="form-control"
+                type="textarea"
+                name="Description"
+                formControlName="ItemDescription"
+                value={{formValue.value.ItemDescription}}
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          cButton
+          [disabled]="formValue.invalid"
+          id="submit"
+          class="btn btn-primary"
+          (click)="editItems()"
+          (click)="modal.close('Closed')"
+        >
+          Edit Item
+        </button>
+      </div>
+    </form>
+  </ng-template>

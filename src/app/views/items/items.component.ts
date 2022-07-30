@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CookieService } from 'ngx-cookie-service';
 import { Subject } from 'rxjs/internal/Subject';
 
 @Component({
@@ -17,10 +18,12 @@ export class ItemsComponent implements OnInit {
   formValue !:FormGroup;
   Items: any=[];
   posts:any;
-  UserId='3a0531d4-2078-b145-6b06-d72f628403d3';
-  Posturl=`https://localhost:44323/api/app/users/${this.UserId}/items`;
-  Geturl=`https://localhost:44323/api/app/users/${this.UserId}/items`;
-  constructor(private modalService: NgbModal,private formbuilder:FormBuilder,private http:HttpClient) {
+  UserId='';
+  Posturl: string = '';
+  Geturl: string = '';
+  index1 = -1;
+  id: any;
+  constructor(private modalService: NgbModal,private formbuilder:FormBuilder,private http:HttpClient , private cookie : CookieService) {
     this.Items=[];
       this.formValue=this.formbuilder.group({
       ItemName:new FormControl('',[Validators.required]),
@@ -66,23 +69,33 @@ getItems(){
   });
 }
  
+  editItems(){
+    console.log("Edited Items is ",this.formValue.value);
+    this.Items[this.index1].name = this.formValue.value.ItemName
+    this.Items[this.index1].ratePerItem = this.formValue.value.ItemRate
+    console.log("Elemenet is ",this.Items[this.index1]);
+    this.http.put(`https://localhost:44323/api/app/users/${this.UserId}/items/${this.Items[this.index1].id}`,{
+      "name": this.formValue.value.ItemName,
+      "ratePerItem": this.formValue.value.ItemRate,
+      "quantity": 0
+    }).subscribe(result=>{
+      console.log("result ",result);
+      this.formValue.reset()
+    })
+  }
+
   ngOnInit(): void {
+    this.UserId = this.cookie.get('uid')
+    this.Posturl=`https://localhost:44323/api/app/users/${this.UserId}/items`;
+    this.Geturl=`https://localhost:44323/api/app/users/${this.UserId}/items`;
     //Time interval setted for displaying the data and it was delayed and needed page refresh.
     this.getItems();
     this.interval =setInterval(()=>{
       this.getItems();
       },5000)
-  //   this.http.get(this.Geturl)
-  //   .subscribe(response => {
-  //   console.log(response)
-  //   this.Items= response;
-  // });
-  //this.deleteFieldValue;
     
   }
- /* ngOnDestroy():void{
-    this.unSubscribe()
-  }*/
+
 //modal for Add item Function
   open(content: any) {
     this.modalService.open(content, { size: 'sm' });
@@ -90,6 +103,21 @@ getItems(){
   //Modal for delete Item Function
   open2(Content2: any) {
     this.modalService.open(Content2, { size: 'sm' });
+  }
+
+  open3(content1:any , id:any){
+    for (let index = 0; index < this.Items.length; index++) {
+      const element = this.Items[index];
+      if(element.id === id){
+        this.index1 = index;
+      }
+    }
+    console.log(this.Items[this.index1]);
+    this.formValue.get('ItemName')?.patchValue(this.Items[this.index1].name)
+    this.formValue.get('ItemRate')?.patchValue(this.Items[this.index1].ratePerItem)
+    this.formValue.get('ItemDescription')?.patchValue(this.Items[this.index1].ItemDescription)
+    console.log(this.formValue.value)
+    this.modalService.open(content1, { size: 'sm' });
   }
   //Submit function of add item
   onSubmit(){
@@ -111,3 +139,4 @@ getItems(){
     return this.Items.get('ItemDescription')
   }
 }
+

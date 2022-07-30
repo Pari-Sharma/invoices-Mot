@@ -35,11 +35,11 @@
         <!--Billing and shipping address-->
         <div class="add">
           <h3>Billing Address</h3>
-          <h4 class="address" *ngIf="change()">
+          <h4 class="address" >
             Select customer to add Billing Address
           </h4>
           <h4><button cButton cButton
-            *ngIf="!change()"
+            
             type="button"
             class="btn btn-lg btn-outline-primary"
             (click)="open1(content1)"
@@ -50,11 +50,11 @@
           </button></h4>
           <br />
           <h3>Shipping Address</h3>
-          <h4 class="address" *ngIf="change()">
+          <h4 class="address" >
             Select customer to add Shipping Address
           </h4>
           <button cButton 
-            *ngIf="!change()"
+            
             type="button"
             class="btn btn-lg btn-outline-primary"
             (click)="open(content)"
@@ -89,6 +89,7 @@
                         id="inputAddress"
                         name="Add-Line1"
                         formControlName="AddLine1"
+                        (change)="shipOnChange($event, 'AddLine1')"
                         placeholder="Add address line 1"
                       />
                     </div>
@@ -102,6 +103,7 @@
                         id="inputAddress2"
                         name="AddLine"
                         formControlName="AddLine2"
+                        (change)="shipOnChange($event, 'AddLine2')"
                         placeholder="Add address (optional) min 8 letters"
                       />
                     </div>
@@ -113,6 +115,7 @@
                         class="form-control"
                         id="Zip-Code"
                         formControlName="ZipCode"
+                        (change)="shipOnChange($event, 'ZipCode')"
                       />
                     </div>
                     <div class="col-md-6">
@@ -123,14 +126,14 @@
                         formControlName="City"
                         class="form-control"
                         id="City"
-
+                        (change)="shipOnChange($event, 'City')"
                       />
                     </div>
                     <div class="col-md-4">
                       <label cLabel for="inputState" class="form-label"
                         >State</label
                       >
-                      <select aria-label="Default select example"formControlName="State"class="State" name="State" cSelect>
+                      <select aria-label="Default select example"formControlName="State"class="State" (change)="shipOnChange($event, 'State')" name="State" cSelect>
                         <option>State</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
@@ -145,6 +148,7 @@
               <button cButton
                 type="button"
                 class="btn btn-outline-dark"
+                (click)="Address('shipping')"
                 (click)="modal.close('Save click')"
               >
                 Save
@@ -165,7 +169,7 @@
               ></button>
             </div>
             <div class="modal-body">
-              <form cForm formGroupName="BillingForm" >
+              <form cForm formGroup="BillingAddressForm" >
                 <div class="mb-3">
                   <!-- <form cForm  class="row g-3"> -->
                     <div class="col-12">
@@ -177,8 +181,9 @@
                         class="form-control"
                         id="inputAddress"
                         placeholder="Add address line 1"
-                        formControlName="AddLine3"
+                        formControlName="AddLine1"
                         name="Add-Line1"
+                        (change)="billOnChange($event, 'AddLine1')"
                       />
                     </div>
                     <div class="col-12">
@@ -190,7 +195,8 @@
                         class="form-control"
                         id="inputAddress2"
                         name="AddLine2"
-                        formControlName="AddLine4"
+                        formControlName="AddLine2"
+                        (change)="billOnChange($event, 'AddLine2')"
                         placeholder="Add address (optional) min 8 letters"
                       />
                     </div>
@@ -199,7 +205,8 @@
                        <input cFormControl
                         type="text"
                         name="Zip-Code"
-                        formControlName="ZipCode2"
+                        formControlName="ZipCode"
+                        (change)="billOnChange($event, 'ZipCode')"
                         class="form-control"
                         id="Zip-Code"
                       />
@@ -210,14 +217,16 @@
                         type="text"
                         class="form-control"
                         id="inputCity"
-                        formControlName="City2"
+                        formControlName="City"
+                        (change)="billOnChange($event, 'City')"
                       />
                     </div>
                     <div class="col-md-4">
                       <label cLabel for="inputState" class="form-label"
+                      
                         >State</label
                       >
-                      <select aria-label="Default select example" formControlName="State2" class="inputState" cSelect>
+                      <select aria-label="Default select example" formControlName="State" (change)="billOnChange($event, 'State')" class="inputState" cSelect>
                         <option>State</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
@@ -232,7 +241,7 @@
               <button cButton
                 type="submit"
                 class="btn btn-outline-dark"
-                (click)="Address()"
+                (click)="Address('billing')"
                 (click)="modal.close('Save click')"
               >
                 Save
@@ -317,18 +326,18 @@
             formControlName="Customers"
             placeholder="Select A customer"
             (change)="newCustomer($event)" (click)="getcustomer"
-            value={{newCust}}
+            value={{newCustSelected.companyName}}
           />
         
-        <datalist id="Customers" (change)="change()" >
+        <datalist id="Customers" >
           <option
-            onclick="change($event)"
-            *ngFor="let cust of Customers"
-            value="{{ cust }}"
+            
+            *ngFor="let cust of Customer;let i=index"
+            value="{{ Customer[i].name }}"
           >
-            {{ cust }}
+            {{ Customer[i].name }}
           </option>
-        <option value="Add">Add customer</option>
+        <option value="Add"><button>Add customer</button></option>
         </datalist>
       </div>
       <br />
@@ -360,7 +369,7 @@
         </ul>
       </div>
                 <!-- Add line Item  -->
-
+<!-- 
       <table>
         <tbody>
           <tr *ngFor="let v of getAllItems.value; let i = index">
@@ -427,7 +436,7 @@
             Save
           </button>
         </div>
-      </ng-template>
+      </ng-template> -->
       <br>
       <br><br>
       <!--Customer Notes -->
@@ -525,16 +534,16 @@
     <button (click)="toggleLiveDemo()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
-    <form formGroup="form" cForm>
+    <form [formGroup]="custForm" cForm>
       <div class="mb-3">
         <label cLabel for="companyName">Name</label>
-        <input cFormControl id="companyName" type="text" formControlName="companyName" placeholder="XYZ"
+        <input cFormControl 
+            id="companyName" 
+            type="text" 
+            formControlName="companyName" 
+            (change)="custOnChange($event,'companyName')"
+            placeholder="XYZ"
               />
-              <div *ngIf="f['companyName'].invalid && (f['companyName'].dirty || f['companyName'].touched)" class="alert alert-danger form-danger" role="alert">
-                <div *ngIf="f['companyName'].errors">
-                    Enter Some Value
-                </div>
-              </div>
           </div>
         <div class="mb-3">
         <label cLabel for="email">Email address</label>
@@ -543,6 +552,7 @@
                    placeholder="name@example.com"
                    type="email"
                    formControlName="email"
+                   (change)="custOnChange($event, 'email')"
             />
         </div>
         <div class="mb-3">
@@ -552,6 +562,7 @@
                      placeholder="9876543210"
                      type="text"
                      formControlName="contactNo"
+                     (change)="custOnChange($event, 'contactNo')"
               />
           </div>
           <div class="mb-3">
@@ -563,6 +574,7 @@
                        formControlName="gstIn"
                        minlength="15"
                        maxlength="15"
+                       (change)="custOnChange($event, 'gstIn')"
                 />
             </div>
         </form>

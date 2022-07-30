@@ -42,18 +42,19 @@ export class LoginComponent implements OnInit {
           console.log("Result of API",result);
           this.authId = Object.values(result)[0];
           console.log("Auth id is ",this.authId);
+          this.cookie.set('uid',this.authId)
           this.Registerurl=`https://localhost:44323/api/app/register-company/${this.authId}`;
           
           console.log(this.Registerurl)
           this.ISregistered=Object.values(result)[3];
           console.log("registered",this.ISregistered);
           console.log("Values in value",Object.values(result))
+          if (this.ISregistered == true){
+            this.router.navigateByUrl('/dashboard');
+          }
         })
       }
     })
-    if (this.ISregistered == true){
-      this.router.navigateByUrl('/dashboard');
-    }
     // this.auth.isAuthenticated$.subscribe(value=>{
     //   this.http.post("https://localhost:44323/api/app/authenticateByIdToken",{'idToken':this.token}).subscribe(result=>{
     //     console.log("Result of API",result);

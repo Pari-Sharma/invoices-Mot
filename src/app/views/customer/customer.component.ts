@@ -139,6 +139,7 @@ export class CustomerComponent implements OnInit {
   constructor(private modalService: NgbModal, private http: HttpClient,private cookie: CookieService) {}
   ngOnInit(): void {
     // this.userId = '3a0531d4-2078-b145-6b06-d72f628403d3'
+    this.userId = this.cookie.get('uid')
     let url = `https://localhost:44323/api/app/users/${this.userId}/customers`;
     this.http.get(url).subscribe((result) => {
       // console.log(Object.values(result));
