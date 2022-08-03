@@ -5,23 +5,26 @@
       Invoice Saved !
     </div>
     <!--Invoices Form-->
-    <form cForm formGroup="InvoiceForm" (ngSubmit)="onSubmit()">
+    <form cForm [formGroup]="InvoiceForm" (ngSubmit)="onSubmit()">
       <!--<h1>{{user.name}}</h1>-->
       <div class="form-group">
         <!--Invoice No-->
         <label cLabel cLabel class="invoice" for="Invoice-No">Invoice #</label>
-         <input cFormControl
+        <input
+          cFormControl
           class="form-control"
           name="Invoice-No"
           id="Invoice-No"
           type="text"
           placeholder="Enter Invoice Number"
           formControlName="InvoiceNo"
+          (change)="invoiceFormChange($event, 'InvoiceNo')"
         />
         <br />
         <!--Desciption of Invoice-->
         <label cLabel cLabel for="Invoice-Description"></label>
-         <input cFormControl 
+        <input
+          cFormControl
           class="form-control"
           autocomplete="off"
           name="Invoice-Description"
@@ -29,46 +32,78 @@
           type="text"
           placeholder="Enter a breif description or summary"
           formControlName="InvoiceDescription"
+          (change)="invoiceFormChange($event, 'InvoiceDescription')"
         />
         <br />
         <br />
         <!--Billing and shipping address-->
         <div class="add">
           <h3>Billing Address</h3>
-          <h4 class="address" >
-            Select customer to add Billing Address
-          </h4>
-          <h4><button cButton cButton
-            
-            type="button"
-            class="btn btn-lg btn-outline-primary"
-            (click)="open1(content1)"
-            href="abc"
+          <div>
+            <h4
+              class="address"
+              *ngIf="newCustSelected.companyName == '' ? true : false"
+            >
+              Select customer to add Billing Address
+            </h4>
+
+            <h4 *ngIf="showBillOnChange()">
+              <button
+                cButton
+                cButton
+                type="button"
+                class="btn btn-lg btn-outline-primary"
+                (click)="open1(content1)"
+                href="abc"
+              >
+                + Add Billing Address
+              </button>
+            </h4>
+          </div>
+          <div
+            *ngIf="newCustSelected.companyName == '' ? false : true"
+            class="billing-addresses"
           >
-          
-          + Add Billing Address
-          </button></h4>
+            <span>{{ newCustSelected.billingAddress }}</span>
+          </div>
+
           <br />
           <h3>Shipping Address</h3>
-          <h4 class="address" >
-            Select customer to add Shipping Address
-          </h4>
-          <button cButton 
-            
-            type="button"
-            class="btn btn-lg btn-outline-primary"
-            (click)="open(content)"
-          >
-            +Add Shipping Address
-          </button>
+          <div>
+            <h4
+              class="address"
+              *ngIf="newCustSelected.companyName == '' ? true : false"
+            >
+              Select customer to add Shipping Address
+            </h4>
 
+            <button
+              cButton
+              *ngIf="showBillOnChange1()"
+              type="button"
+              class="btn btn-lg btn-outline-primary"
+              (click)="open(content)"
+            >
+              +Add Shipping Address
+            </button>
+          </div>
+          <div
+            class="billing-addresses"
+            *ngIf="newCustSelected.companyName == '' ? false : true"
+          >
+            <span>{{ newCustSelected.shippingAddress }}</span>
+          </div>
+        </div>
+
+        <div>
           <!--modal form for shipping Address-->
           <ng-template #content let-modal>
             <div class="modal-header">
               <h4 class="modal-title" id="modal-basic-title">
                 Shipping Address
               </h4>
-              <button cButton 
+              <button
+                cButton
                 type="button"
                 class="btn-close"
                 aria-label="Close"
@@ -76,14 +111,15 @@
               ></button>
             </div>
             <div class="modal-body">
-              <form cForm formGroupName="ShippingForm" >
+              <form cForm formGroupName="ShippingForm">
                 <div class="mb-3">
                   <form cForm class="row g-3">
                     <div class="col-12">
                       <label cLabel for="inputAddress" class="form-label">
                         Address
                       </label>
-                       <input cFormControl
+                      <input
+                        cFormControl
                         type="text"
                         class="form-control"
                         id="inputAddress"
@@ -97,7 +133,8 @@
                       <label cLabel for="inputAddress2" class="form-label">
                         Address 2
                       </label>
-                       <input cFormControl
+                      <input
+                        cFormControl
                         type="text"
                         class="form-control"
                         id="inputAddress2"
@@ -108,8 +145,11 @@
                       />
                     </div>
                     <div class="col-md-2">
-                      <label cLabel for="Zip-Code" class="form-label">Zip</label>
-                       <input cFormControl
+                      <label cLabel for="Zip-Code" class="form-label"
+                        >Zip</label
+                      >
+                      <input
+                        cFormControl
                         type="text"
                         name="Zip-Code"
                         class="form-control"
@@ -120,7 +160,8 @@
                     </div>
                     <div class="col-md-6">
                       <label cLabel for="City" class="form-label">City</label>
-                       <input cFormControl
+                      <input
+                        cFormControl
                         type="text"
                         name="City"
                         formControlName="City"
@@ -133,7 +174,14 @@
                       <label cLabel for="inputState" class="form-label"
                         >State</label
                       >
-                      <select aria-label="Default select example"formControlName="State"class="State" (change)="shipOnChange($event, 'State')" name="State" cSelect>
+                      <select
+                        aria-label="Default select example"
+                        formControlName="State"
+                        class="State"
+                        (change)="shipOnChange($event, 'State')"
+                        name="State"
+                        cSelect
+                      >
                         <option>State</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
@@ -145,7 +193,8 @@
               </form>
             </div>
             <div class="modal-footer">
-              <button cButton
+              <button
+                cButton
                 type="button"
                 class="btn btn-outline-dark"
                 (click)="Address('shipping')"
@@ -161,7 +210,8 @@
               <h4 class="modal-title" id="modal-basic-title">
                 Billing Address
               </h4>
-              <button cButton
+              <button
+                cButton
                 type="button"
                 class="btn-close"
                 aria-label="Close"
@@ -169,14 +219,15 @@
               ></button>
             </div>
             <div class="modal-body">
-              <form cForm formGroup="BillingAddressForm" >
+              <form cForm formGroup="BillingAddressForm">
                 <div class="mb-3">
-                  <!-- <form cForm  class="row g-3"> -->
+                  <form cForm class="row g-3">
                     <div class="col-12">
                       <label cLabel for="inputAddress" class="form-label">
                         Address
                       </label>
-                       <input cFormControl
+                      <input
+                        cFormControl
                         type="text"
                         class="form-control"
                         id="inputAddress"
@@ -190,7 +241,8 @@
                       <label cLabel for="inputAddress2" class="form-label">
                         Address 2
                       </label>
-                       <input cFormControl
+                      <input
+                        cFormControl
                         type="text"
                         class="form-control"
                         id="inputAddress2"
@@ -201,8 +253,11 @@
                       />
                     </div>
                     <div class="col-md-2">
-                      <label cLabel for="Zip-Code" class="form-label">Zip</label>
-                       <input cFormControl
+                      <label cLabel for="Zip-Code" class="form-label"
+                        >Zip</label
+                      >
+                      <input
+                        cFormControl
                         type="text"
                         name="Zip-Code"
                         formControlName="ZipCode"
@@ -212,8 +267,11 @@
                       />
                     </div>
                     <div class="col-md-6">
-                      <label cLabel for="inputCity" class="form-label">City</label>
-                       <input cFormControl
+                      <label cLabel for="inputCity" class="form-label"
+                        >City</label
+                      >
+                      <input
+                        cFormControl
                         type="text"
                         class="form-control"
                         id="inputCity"
@@ -223,22 +281,28 @@
                     </div>
                     <div class="col-md-4">
                       <label cLabel for="inputState" class="form-label"
-                      
                         >State</label
                       >
-                      <select aria-label="Default select example" formControlName="State" (change)="billOnChange($event, 'State')" class="inputState" cSelect>
+                      <select
+                        aria-label="Default select example"
+                        formControlName="State"
+                        (change)="billOnChange($event, 'State')"
+                        class="inputState"
+                        cSelect
+                      >
                         <option>State</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
                       </select>
                     </div>
-                  <!-- </form> -->
+                  </form>
                 </div>
               </form>
             </div>
             <div class="modal-footer">
-              <button cButton
+              <button
+                cButton
                 type="submit"
                 class="btn btn-outline-dark"
                 (click)="Address('billing')"
@@ -255,20 +319,22 @@
             </div>
             <div class="modal-body">
               <p>
-                The Invoice will be deleted. There is no coming back!. Are
-                you sure? If you have added any item or customer, you can
-                still use them in other invoices.&hellip;
+                The Invoice will be deleted. There is no coming back!. Are you
+                sure? If you have added any item or customer, you can still use
+                them in other invoices.&hellip;
               </p>
             </div>
             <div class="modal-footer">
-              <button cButton
+              <button
+                cButton
                 type="button"
                 class="btn btn-light No-Delete"
                 (click)="modal.dismiss('Cross click')"
               >
                 No, Don't!
               </button>
-              <button cButton
+              <button
+                cButton
                 type="submit"
                 class="btn btn-primary Yes-Delete"
                 (click)="modal.Save('Submit')"
@@ -281,7 +347,8 @@
           <ng-template #Content2 let-modal>
             <div class="modal-header">
               <h2 class="modal-title">Issue Invoice</h2>
-              <button cButton
+              <button
+                cButton
                 type="button"
                 class="btn-close"
                 aria-label="Close"
@@ -301,10 +368,10 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button cButton
+              <button
+                cButton
                 type="submit"
                 value="Issued"
-                formControlName="Status"
                 class="btn btn-primary Issue"
                 (click)="AddInvoice()"
                 (click)="modal.close('Submit click')"
@@ -315,139 +382,102 @@
           </ng-template>
         </div>
         <!--Billing to-->
-        <label>
-          Billing To </label>
-          <br />
-           <input cFormControl
-            autocomplete="off"
-            class="Customers"
-            list="Customers"
-            name="Customer"
-            formControlName="Customers"
-            placeholder="Select A customer"
-            (change)="newCustomer($event)" (click)="getcustomer"
-            value={{newCustSelected.companyName}}
-          />
-        
-        <datalist id="Customers" >
+        <label> Billing To </label>
+        <br />
+        <input
+          cFormControl
+          autocomplete="off"
+          class="Customers"
+          list="Customers"
+          name="Customer"
+          placeholder="Select A customer"
+          (change)="newCustomer($event)"
+          value="{{ newCustSelected.name }}"
+        />
+
+        <datalist id="Customers">
           <option
-            
-            *ngFor="let cust of Customer;let i=index"
+            *ngFor="let cust of Customer; let i = index"
             value="{{ Customer[i].name }}"
           >
             {{ Customer[i].name }}
           </option>
-        <option value="Add"><button>Add customer</button></option>
+          <option value="Add"><button>Add customer</button></option>
         </datalist>
       </div>
       <br />
       <!--Issue date and billing date-->
       <div class="form-group">
         <label cLabel for="IssueDate">Issue Date</label>
-         <input cFormControl formControlName="IssueDate" class="Date" type="date" [value]="TodayDate" />
+        <input
+          cFormControl
+          formControlName="IssueDate"
+          class="Date"
+          type="date"
+          [value]="TodayDate"
+          (change)="invoiceFormChange($event, 'IssueDate')"
+        />
         <br />
         <br />
         <label cLabel for="Expiry-Date">Expiry Date</label>
-         <input cFormControl
+        <input
+          cFormControl
           class="Date"
           type="date"
           formControlName="ExpiryDate"
           placeholder="Expiry date"
           value="Expiry Date"
+          (change)="invoiceFormChange($event, 'ExpiryDate')"
           min="{{ TodayDate }}"
         />
       </div>
       <br />
       <br />
       <br />
+      <!-- Add line item -->
       <div class="form-group">
-        <ul>
-          <li class="Desc">Description</li>
-          <li>Rate/Item</li>
-          <li>QTY</li>
-          <li>Total</li>
-        </ul>
+        <table>
+          <thead>
+            <th>Description</th>
+            <th>Rate</th>
+            <th>Qty</th>
+            <th>Total</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let v of getAllItems.value;let i = index">
+              <td>
+                <input value={{v.name}} list="options" (change)="AddOrNotAdd($event , i)">
+                <datalist id="options">
+                  <option *ngFor="let g of arrayItem">{{g.value.name}}</option>
+                  <option value="add">Add</option>
+                </datalist>
+              </td>
+              <td>{{v.qty}}</td>
+              <td>{{v.rate}}</td>
+              <td>{{v.total}}</td>
+              <td *ngIf="getAllItems.value.length > 1"><button (click)="DeleteDocumentAndReturnFormGroup(i)">Delete</button></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <h2>The Total data is {{total}}</h2>
+        <button (click)="AddNewEmptyItems()">Add Item</button>
+
       </div>
-                <!-- Add line Item  -->
-<!-- 
-      <table>
-        <tbody>
-          <tr *ngFor="let v of getAllItems.value; let i = index">
-            <td>
-               <input cFormControl
-                value="{{ v.name }}"
-                list="options"
-                (change)="AddOrNotAdd($event, i)"
-                
-              />
-              <datalist id="options">
-                <option *ngFor="let g of arrayItem">
-                  {{ g.value.name }}
-                </option>
-                <option value="add" >Add</option>
-              </datalist>
-            </td>
-            <td>{{ v.qty }}</td>
-            <td>{{ v.rate }}</td>
-            <td>{{ v.total }}</td>
-            <td *ngIf="arrayItem.length > 0">
-              <button cButton (click)="DeleteDocumentAndReturnFormGroup(i)">
-                Delete
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h2>The Total data is {{ total }}</h2>
-
-      <button cButton (click)="AddNewEmptyItems()">Add Item</button>
-
-      <ng-template #content4 let-modal>
-        <div class="modal-header">
-          <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
-          <button cButton
-            type="button"
-            class="btn-close"
-            aria-label="Close"
-            (click)="modal.dismiss('Cross click')"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <div class="container">
-            <form cForm [formGroup]="ItemForm">
-              Product Name <input cFormControl formControlName="name" /> Product
-              Rate <input cFormControl formControlName="rate" /> Product Qty <input cFormControl
-                formControlName="qty"
-              />
-              Product Description <input cFormControl formControlName="description" />
-              <button cButton type="button" (click)="modal.close('Submit')">
-                Submit
-              </button>
-            </form>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button cButton
-            type="button"
-            class="btn btn-outline-dark"
-            (click)="modal.close('Save click')"
-          >
-            Save
-          </button>
-        </div>
-      </ng-template> -->
-      <br>
-      <br><br>
+      <!-- Add line Item  -->
+      <br />
+      <br /><br />
       <!--Customer Notes -->
       <div class="form-group">
         <label cLabel for="Customer-Notes">Customer Notes</label>
         <br />
-         <input cFormControl
+        <input
+          cFormControl
           class="form-control"
           name="Customer-Notes"
           id="Customer-Notes"
           formControlName="CustomerNotes"
+          (change)="invoiceFormChange($event, 'CustomerNotes')"
           type="text"
           placeholder="Add Customer Notes"
         />
@@ -456,11 +486,13 @@
         <!--Terms and conditions-->
         <label cLabel for="Terms-And-Conditions">Terms And Conditions</label>
         <br />
-         <input cFormControl
+        <input
+          cFormControl
           class="form-control"
           name="Terms-And-Conditions"
           id="Terms-And-Conditions"
           formControlName="TermsAndConditions"
+          (change)="invoiceFormChange($event, 'TermsAndConditions')"
           type="text"
           placeholder="Add Terms And Conditions"
         />
@@ -472,7 +504,8 @@
   be shown-->
   <div class="buttons">
     <div class="btn-group-vertical">
-      <button cButton
+      <button
+        cButton
         id="buttons"
         type="button"
         class="btn btn-primary mb-2 me-2"
@@ -481,7 +514,8 @@
         <i class="fa fa-check" aria-hidden="true"></i>Finalize and Issue
       </button>
       <br />
-      <button cButton
+      <button
+        cButton
         id="buttons"
         class="btn btn-light"
         type="button"
@@ -493,25 +527,21 @@
       <button cButton id="buttons" class="btn btn-light" type="button">
         <i class="fa fa-clone" aria-hidden="true"></i> Duplicate Invoices
       </button>
-      <button cButton
+      <button
+        cButton
         id="buttons"
         (click)="DeleteInvoice(Delete)"
         class="btn btn-light"
         value="Cancelled"
         type="button"
       >
-        <i class="fa fa-times"  aria-hidden="true"></i> Delete Invoices
+        <i class="fa fa-times" aria-hidden="true"></i> Delete Invoices
       </button>
     </div>
   </div>
 </div>
 
-
-
 <!-- FOr Add Customer -->
-
-
-
 
 <!-- <c-modal id="liveDemoModal" *ngIf="visible" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
   <c-modal-header>
@@ -528,7 +558,43 @@
 </c-modal> -->
 
 
-<c-modal id="liveDemoModal" *ngIf="visible" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
+<ng-template #content123 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      Shipping Address
+    </h4>
+    <button
+      cButton
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+      <div class="mb-3">
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      cButton
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="Address('shipping')"
+      (click)="modal.close('Save click')"
+    >
+      Save
+    </button>
+  </div>
+</ng-template>
+
+
+<c-modal
+  id="liveDemoModal"
+  *ngIf="visible"
+  [visible]="visible"
+  (visibleChange)="handleLiveDemoChange($event)"
+>
   <c-modal-header>
     <h5 cModalTitle>Add Customer</h5>
     <button (click)="toggleLiveDemo()" cButtonClose></button>
@@ -537,52 +603,76 @@
     <form [formGroup]="custForm" cForm>
       <div class="mb-3">
         <label cLabel for="companyName">Name</label>
-        <input cFormControl 
-            id="companyName" 
-            type="text" 
-            formControlName="companyName" 
-            (change)="custOnChange($event,'companyName')"
-            placeholder="XYZ"
-              />
-          </div>
-        <div class="mb-3">
+        <input
+          cFormControl
+          id="companyName"
+          type="text"
+          formControlName="companyName"
+          (change)="custOnChange($event, 'companyName')"
+          placeholder="XYZ"
+        />
+      </div>
+      <div class="mb-3">
         <label cLabel for="email">Email address</label>
-        <input cFormControl
-                   id="email"
-                   placeholder="name@example.com"
-                   type="email"
-                   formControlName="email"
-                   (change)="custOnChange($event, 'email')"
-            />
-        </div>
-        <div class="mb-3">
-          <label cLabel for="contactNo">Contact No</label>
-          <input cFormControl
-                     id="contactNo"
-                     placeholder="9876543210"
-                     type="text"
-                     formControlName="contactNo"
-                     (change)="custOnChange($event, 'contactNo')"
-              />
-          </div>
-          <div class="mb-3">
-            <label cLabel for="gstIn">Gst In</label>
-            <input cFormControl
-                       id="gstIn"
-                       placeholder="15 letters required"
-                       type="text"
-                       formControlName="gstIn"
-                       minlength="15"
-                       maxlength="15"
-                       (change)="custOnChange($event, 'gstIn')"
-                />
-            </div>
-        </form>
-    </c-modal-body>
-    <c-modal-footer>
-      <button (click)="toggleLiveDemo()" cButton color="secondary">
-        Close
-      </button>
-      <button cButton color="primary"  (click)="addCustomer()">Add</button>
-    </c-modal-footer>
-  </c-modal>
+        <input
+          cFormControl
+          id="email"
+          placeholder="name@example.com"
+          type="email"
+          formControlName="email"
+          (change)="custOnChange($event, 'email')"
+        />
+      </div>
+      <div class="mb-3">
+        <label cLabel for="contactNo">Contact No</label>
+        <input
+          cFormControl
+          id="contactNo"
+          placeholder="9876543210"
+          type="text"
+          formControlName="contactNo"
+          (change)="custOnChange($event, 'contactNo')"
+        />
+      </div>
+      <div class="mb-3">
+        <label cLabel for="gstIn">Gst In</label>
+        <input
+          cFormControl
+          id="gstIn"
+          placeholder="15 letters required"
+          type="text"
+          formControlName="gstIn"
+          minlength="15"
+          maxlength="15"
+          (change)="custOnChange($event, 'gstIn')"
+        />
+      </div>
+    </form>
+  </c-modal-body>
+  <c-modal-footer>
+    <button (click)="toggleLiveDemo()" cButton color="secondary">Close</button>
+    <button cButton color="primary" (click)="addCustomer()">Add</button>
+  </c-modal-footer>
+</c-modal>
+
+
+<ng-template #content4 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+      <form [formGroup]="ItemForm">
+        Product Name<input formControlName="name" >
+        Product Rate<input formControlName="rate" >
+        Product Qty<input formControlName="qty" >
+        Product Description<input formControlName="description" >
+       <button type="button" (click)="modal.close('Submit')">Submit</button>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>

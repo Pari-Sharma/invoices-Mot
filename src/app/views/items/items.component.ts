@@ -12,6 +12,8 @@ import { Subject } from 'rxjs/internal/Subject';
 })
 export class ItemsComponent implements OnInit {
 
+// Declaring variables
+
   closeResult!: string;
   private unSubscribe: Subject<any> = new Subject();
   interval:any;
@@ -68,7 +70,7 @@ getItems(){
     this.Items = response;
   });
 }
- 
+//  Edit item function
   editItems(){
     console.log("Edited Items is ",this.formValue.value);
     this.Items[this.index1].name = this.formValue.value.ItemName
@@ -97,15 +99,15 @@ getItems(){
   }
 
 //modal for Add item Function
-  open(content: any) {
-    this.modalService.open(content, { size: 'sm' });
+  Add(AddItem: any) {
+    this.modalService.open(AddItem, { size: 'sm' });
   }
-  //Modal for delete Item Function
-  open2(Content2: any) {
-    this.modalService.open(Content2, { size: 'sm' });
+  //modal for delete Item Function
+  Delete(DeleteItem: any) {
+    this.modalService.open(DeleteItem, { size: 'sm' });
   }
-
-  open3(content1:any , id:any){
+// modal for Edit item Function
+  Edit(EditItem:any , id:any){
     for (let index = 0; index < this.Items.length; index++) {
       const element = this.Items[index];
       if(element.id === id){
@@ -117,15 +119,14 @@ getItems(){
     this.formValue.get('ItemRate')?.patchValue(this.Items[this.index1].ratePerItem)
     this.formValue.get('ItemDescription')?.patchValue(this.Items[this.index1].ItemDescription)
     console.log(this.formValue.value)
-    this.modalService.open(content1, { size: 'sm' });
+    this.modalService.open(EditItem, { size: 'sm' });
   }
   //Submit function of add item
   onSubmit(){
     console.log('Items:',this.formValue.value);
-  
     this.formValue.reset();
   }
-  //Getting values 
+  //Getting values of formfields
   get ItemName()
   {
     return this.Items.get('ItemName')

@@ -1,43 +1,53 @@
-nav{
+// Nav bar for displaying items
+nav {
   background-color: aliceblue;
-  width:87%;
-  margin-top:40px;
-  margin-left:74px;
-  height:50px
-  }
-  .btn-primary {
-      margin-top:10px;
-      float: right;
-    }
-    th{
-      background-color: #eaeff0;
-      border-bottom: 1px solid #ddd;
-      border-top: 1px solid #ddd;
-      border-left: none;
-      border-right: none;
-      padding:10px;
-      width:158px;
-      text-align: center;
-      --fontFamily: Lato;
-    }
-    td{
-      background-color: whitesmoke;
-      border-bottom: 1px solid #ddd;
-      border-top: 1px solid #ddd;
-      padding:10px;
-      height:40px;
-      width:158px;
-      text-align: center;
-      --fontFamily: Lato;
-    }
-    table{
-      margin-top: 20px;
-      padding:5px;
-      margin-left:72px;
-      width:80%;
-    }
-    .header{
-      background-color: aliceblue;
-      height:60px;
-      width:80%;
-      }
+  width: 87%;
+  margin-left: 74px;
+  height: 50px;
+}
+// Button used for Add Invoices
+.btn-primary {
+  margin-top: 10px;
+  float: right;
+}
+// Table Heading
+th {
+  background-color: #eaeff0;
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  border-left: none;
+  border-right: none;
+  padding: 10px;
+  width: 158px;
+  text-align: center;
+  --fontFamily: Lato;
+}
+// Table Data
+td {
+  background-color: whitesmoke;
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  padding: 10px;
+  height: 40px;
+  width: 158px;
+  text-align: center;
+  --fontFamily: Lato;
+}
+// Table for displaying Items
+table {
+  margin-top: 20px;
+  padding: 5px;
+  margin-left: 72px;
+  width: 90%;
+}
+// Header class of navbar
+.header {
+  background-color: aliceblue;
+  height: 60px;
+  width: 90%;
+}
+// class for invoices Id button to showing it as a link
+.InvoiceId {
+  border: none;
+  color: blue;
+}

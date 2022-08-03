@@ -5,6 +5,7 @@ import { InvoicesRoutingModule } from './invoices-routing.module';
 import { NewInvoiceComponent } from './new-invoice/new-invoice.component';
 import { AllInvoiceComponent } from './all-invoice/all-invoice.component';
 import { ModalModule , CardModule , FormModule } from '@coreui/angular-pro';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { ModalModule , CardModule , FormModule } from '@coreui/angular-pro';
   ],
   imports: [
     CommonModule,
-    InvoicesRoutingModule,CardModule,ModalModule,FormModule
+    InvoicesRoutingModule,CardModule,ModalModule,FormModule,
+    ReactiveFormsModule, FormsModule
   ],
   exports:[
     NewInvoiceComponent,
