@@ -158,3 +158,27 @@ body{
     line-height: auto;
     font-size:x-large;
   }
+  thead{
+    background-color: rgb(196, 195, 195);
+    padding-bottom: 15px;
+  }
+  th{
+    width:350px;
+    height:35px;
+  }
+  .items-table{
+    width:250px;
+    border:none;
+    height:30px;
+    border-bottom: 1px solid rgb(196, 195, 195);
+    margin-top:20px;
+    outline: none;
+  }
+  .total{
+    float:right;
+  }
+  .total-button{
+    width:150px;
+    margin-top:15px;
+    height:35px;
+  }

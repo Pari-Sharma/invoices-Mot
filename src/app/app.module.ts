@@ -44,6 +44,8 @@ import { AllApiCallsService } from './all-api-calls.service';
 import { ItemsComponent } from './views/items/items.component';
 import { CookieService } from 'ngx-cookie-service';
 import { LoginComponent } from './views/login/login.component';
+import { InvoiceUploadComponent } from './views/invoice-upload/invoice-upload.component';
+import { AllUploadedInvoicesComponent } from './views/invoices/all-uploaded-invoices/all-uploaded-invoices.component';
 
 const APP_CONTAINERS = [
   DefaultAsideComponent,
@@ -53,7 +55,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS, CustomerComponent, MainFileUploadComponent, ItemsComponent,LoginComponent],
+  declarations: [AppComponent, ...APP_CONTAINERS, CustomerComponent, MainFileUploadComponent, ItemsComponent,LoginComponent, InvoiceUploadComponent,],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     BrowserModule,
@@ -72,7 +74,6 @@ const APP_CONTAINERS = [
     ReactiveFormsModule,
     SidebarModule,
     BadgeModule,
-    InvoicesModule,
     ModalModule,
     FormModule,
     AuthModule.forRoot({

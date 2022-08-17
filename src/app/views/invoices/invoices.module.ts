@@ -6,11 +6,15 @@ import { NewInvoiceComponent } from './new-invoice/new-invoice.component';
 import { AllInvoiceComponent } from './all-invoice/all-invoice.component';
 import { ModalModule , CardModule , FormModule } from '@coreui/angular-pro';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UploadInvoicesComponent } from './upload-invoices/upload-invoices.component';
+import { AllUploadedInvoicesComponent } from './all-uploaded-invoices/all-uploaded-invoices.component';
 
 @NgModule({
   declarations: [
     NewInvoiceComponent,
     AllInvoiceComponent,
+    UploadInvoicesComponent,
+    AllUploadedInvoicesComponent,
     
   ],
   imports: [
@@ -20,7 +24,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   exports:[
     NewInvoiceComponent,
-    AllInvoiceComponent
+    AllInvoiceComponent,
+    UploadInvoicesComponent,
+    AllUploadedInvoicesComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

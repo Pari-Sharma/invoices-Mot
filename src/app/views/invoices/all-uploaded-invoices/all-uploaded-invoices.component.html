@@ -1,0 +1,49 @@
+<!-- card component from CoreUI Angular -->
+<!-- <c-card class="text-center" *ngIf="isInvoice"> -->
+    <c-card-body>
+        <c-card-body>  
+          <!-- Nav Bar for header -->
+      <nav class="header">
+        <button cButton color="info" class="btn btn-block btn-light" 
+      checked
+      >Invoices</button>   
+      <!-- Add Invoices Button that will route to invoice form -->
+      <button cButton  color="info"   routerLinkActive="active"
+      size="sm"
+      routerLink="/invoices/new" class="btn btn-block btn-primary"> + Add Invoice</button>
+      <button cButton  color="info"   routerLinkActive="active"
+      size="sm"
+      routerLink="/invoices/Upload-invoices" class="btn btn-block btn-primary"> Upload invoices </button>
+        </nav>
+        <!-- button navigating to upload invoices -->
+
+        <!-- Table for displaying all Invoices -->
+        <table cTable>
+          <!-- Table heading -->
+            <thead>
+            <tr>
+                <th scope="col">Invoice Id</th>
+                <th scope="col">Created Date</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Receipt No.</th>
+                <th scope="col">Customer</th>
+                <th scope="col">Payment Link</th>
+                <th scope="col">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+              <!-- Displaying All invoices into table data -->
+            <!-- <tr *ngFor="let v of data">
+              <td><button class="InvoiceId">{{v.id}}</button></td>
+              <td>{{v.issueDate}}</td>
+              <td>0</td>
+              <td>{{v.invoiceNumber}}</td>
+              <td>{{v.customer.name}}</td>
+              <td>NA</td>
+              <td>{{v.status}}</td>
+            </tr> -->
+            </tbody>
+            </table>
+          </c-card-body>
+        </c-card-body>
+        <!-- </c-card> -->

@@ -446,7 +446,7 @@
           <tbody>
             <tr *ngFor="let v of getAllItems.value;let i = index">
               <td>
-                <input value={{v.name}} list="options" (change)="AddOrNotAdd($event , i)">
+                <input value={{v.name}} list="options" class="items-table" (change)="AddOrNotAdd($event , i)">
                 <datalist id="options">
                   <option *ngFor="let g of arrayItem">{{g.value.name}}</option>
                   <option value="add">Add</option>
@@ -460,8 +460,8 @@
           </tbody>
         </table>
         
-        <h2>The Total data is {{total}}</h2>
-        <button (click)="AddNewEmptyItems()">Add Item</button>
+        <h3 class="total">The Total Amount is {{total}}</h3>
+        <button class="btn btn-light total-button "(click)="AddNewEmptyItems()">Add Item</button>
 
       </div>
       <!-- Add line Item  -->
@@ -519,7 +519,7 @@
         id="buttons"
         class="btn btn-light"
         type="button"
-        value="Draft"
+        value="Issued"
         (click)="alert(isAlert)"
       >
         <i class="fa fa-floppy-o" aria-hidden="true"></i> Save Invoices
@@ -658,21 +658,62 @@
 
 <ng-template #content4 let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <h4 class="modal-title" id="modal-basic-title">Add Item</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
-    <div class="container">
+    <div class="form-group">
       <form [formGroup]="ItemForm">
-        Product Name<input formControlName="name" >
-        Product Rate<input formControlName="rate" >
-        Product Qty<input formControlName="qty" >
-        Product Description<input formControlName="description" >
-       <button type="button" (click)="modal.close('Submit')">Submit</button>
+        <h4 for="Item"> Product Name</h4>
+        <div class="input-group mb-3">
+          <input
+            cFormControl
+            class="form-control"
+            type="text"
+            name="item"
+            placeholder="Item Name"
+            formControlName="name"
+          />
+        </div>
+        <h4 for="Item">Product Rate</h4>
+        <div class="input-group mb-3">
+          <input
+            cFormControl
+            class="form-control"
+            type="text"
+            name="rate"
+            placeholder="Item rate"
+            formControlName="rate"
+          />
+        </div>
+        <h4 for="Item">Product Qty</h4>
+        <div class="input-group mb-3">
+          <input
+            cFormControl
+            class="form-control"
+            type="text"
+            name="qty"
+            placeholder="Item qty"
+            formControlName="qty" 
+          />
+        </div>
+        <h4 for="Item">Product Description</h4>
+        <div class="input-group mb-3">
+          <input
+            cFormControl
+            class="form-control"
+            type="text"
+            name="desc"
+            placeholder="Item desc"
+            formControlName="description" 
+          />
+        </div>
+
+       
       </form>
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    <button type="button" (click)="modal.close('Submit')">Submit</button>
   </div>
 </ng-template>

@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit {
       CompanyPAN:new FormControl('',[Validators.required]),
       CompanyGST:new FormControl('',[Validators.required]),
       ContactPerson:new FormControl('',[Validators.required]),
-      Email:new FormControl(''),
+      Email:new FormControl('',[Validators.pattern(this.emailPattern)]),
       ContactNo:new FormControl('',[Validators.required,Validators.pattern(this.MOBILE_PATTERN)]),
   })
 
