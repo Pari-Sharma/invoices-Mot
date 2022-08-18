@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { DefaultLayoutComponent } from './containers';
 import { CustomerComponent } from './views/customer/customer.component';
-import { InvoiceUploadComponent } from './views/invoice-upload/invoice-upload.component';
 import { AllInvoiceComponent } from './views/invoices/all-invoice/all-invoice.component';
 import { NewInvoiceComponent } from './views/invoices/new-invoice/new-invoice.component';
 import { UploadInvoicesComponent } from './views/invoices/upload-invoices/upload-invoices.component';
